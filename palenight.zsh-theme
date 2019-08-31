@@ -1,4 +1,5 @@
 # Custom theme created by Richard Hu, based on pygmalion
+# http://panmental.de/symbols/info.htm for symbols
 
 NUM_COLOR=white
 
@@ -22,7 +23,7 @@ function git_prompt_info() {
   if [[ "$(command git config --get oh-my-zsh.hide-status 2>/dev/null)" != "1" ]]; then
     ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
     ref=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
-    echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$(git_stash_status)$(parse_git_dirty)$(git_prompt_status)$ZSH_THEME_GIT_PROMPT_SUFFIX"
+    echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$(git_stash_status)$(git_commits_ahead)$(git_commits_behind)$(parse_git_dirty)$(git_prompt_status)$ZSH_THEME_GIT_PROMPT_SUFFIX"
     
   fi
 }
@@ -37,6 +38,9 @@ echo "files added:$fg_bold[yellow]     +$reset_color"
 echo "files deleted:$fg_bold[yellow]   -$reset_color"
 echo "files untracked:$fg_bold[yellow] ?$reset_color"
 echo "files renamed:$fg_bold[yellow]   ↻$reset_color"
+echo "commits ahead:$fg_bold[yellow]   ↑$reset_color"
+echo "commits behind:$fg_bold[yellow]  ↓$reset_color"
+echo "stashes:$fg_bold[yellow]        [#]$reset_color"
 echo "-----------------------------------------------"
 echo "$fg_bold[white](•_•) ( •_•)>⌐■-■ (⌐■_■)$reset_color"
 }
@@ -110,12 +114,10 @@ function git_prompt_status() {
 
 
   # TODO
-  # if $(command git rev-parse --verify refs/stash >/dev/null 2>&1); then
-  #   STATUS="$ZSH_THEME_GIT_PROMPT_STASHED$NUM$STATUS"
-  # fi
-  # # look for unmerged files
-  # if $(echo "$INDEX" | grep '^UU ' &> /dev/null); then
-  #   STATUS="$ZSH_THEME_GIT_PROMPT_UNMERGED$NUM$STATUS"
+  # look for unmerged files
+  # if $(echo "$INDEX" | grep '^ UU ' &> /dev/null); then
+  #   NUM="%{$fg_bold[$NUM_COLOR]%}$(command git status --porcelain 2>/dev/null| grep "^ UU" | wc -l)%{$reset_color%}"
+  #   STATUS="$ZSH_THEME_GIT_PROMPT_DELETED$NUM$STATUS"
   # fi
   # if $(echo "$INDEX" | grep '^## [^ ]\+ .*ahead' &> /dev/null); then
   #   STATUS="$ZSH_THEME_GIT_PROMPT_AHEAD$NUM$STATUS"
@@ -138,6 +140,10 @@ prompt_setup_richard(){
   ZSH_THEME_GIT_PROMPT_DELETED="%{$fg_bold[yellow]%} -%{$reset_color%}"
   ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg_bold[yellow]%} ↻%{$reset_color%}"
 
+  ZSH_THEME_GIT_COMMITS_AHEAD_PREFIX="%{$fg_bold[yellow]%} ↑"
+  ZSH_THEME_GIT_COMMITS_AHEAD_SUFFIX="%{$reset_color%}"
+  ZSH_THEME_GIT_COMMITS_BEHIND_PREFIX="%{$fg_bold[yellow]%} ↓"
+  ZSH_THEME_GIT_COMMITS_BEHIND_SUFFIX="%%{$reset_color%}"
   # ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[yellow]%} ⚡%{$reset_color%}"
   ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[red]%} ✗%{$reset_color%}"
   ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%} ✓%{$reset_color%}"
