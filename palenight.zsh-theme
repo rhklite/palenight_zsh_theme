@@ -1,4 +1,4 @@
-# Custom theme created by Richard Hu, based on pygmalion
+# Custom theme created by Han Hu
 # http://panmental.de/symbols/info.htm for symbols
 
 NUM_COLOR=white
@@ -30,7 +30,7 @@ function git_prompt_info() {
 
 function git_symbol_reference(){
 echo "-----------------------------------------------"
-echo "git prompt theme created by Richard Hu, June 30 2019"
+echo "git prompt theme created by Han Hu, June 30 2019"
 echo "git repo clean:$fg_bold[green]  ✓$reset_color"
 echo "git repo dirty:$fg_bold[red]  ✗$reset_color"
 echo "files modified:$fg_bold[yellow]  ⚡$reset_color"
