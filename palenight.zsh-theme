@@ -143,7 +143,7 @@ prompt_setup_richard(){
   ZSH_THEME_GIT_COMMITS_AHEAD_PREFIX="%{$fg_bold[yellow]%} ↑"
   ZSH_THEME_GIT_COMMITS_AHEAD_SUFFIX="%{$reset_color%}"
   ZSH_THEME_GIT_COMMITS_BEHIND_PREFIX="%{$fg_bold[yellow]%} ↓"
-  ZSH_THEME_GIT_COMMITS_BEHIND_SUFFIX="%%{$reset_color%}"
+  ZSH_THEME_GIT_COMMITS_BEHIND_SUFFIX="%{$reset_color%}"
   # ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[yellow]%} ⚡%{$reset_color%}"
   ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[red]%} ✗%{$reset_color%}"
   ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%} ✓%{$reset_color%}"
