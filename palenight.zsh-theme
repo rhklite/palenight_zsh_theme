@@ -4,9 +4,8 @@
 NUM_COLOR=white
 
 function conda_prompt_info {
-    CONDA_ENV="$(conda info -s | grep CONDA_DEFAULT_ENV | cut -d' ' -f2)"
-    [[ -n ${CONDA_ENV} ]] || return
-    echo "[${CONDA_ENV:t}]"
+    [[ -n ${CONDA_DEFAULT_ENV} ]] || return
+    echo "[${CONDA_DEFAULT_ENV:t}]"
 }
 
 function git_prompt_info() {
@@ -142,8 +141,8 @@ prompt_setup_richard(){
     
     # base_prompt='$(_virtualenv_prompt_info)%{$fg_bold[green]%}%n%{$reset_color%}%{$fg_bold[green]%}:%{$reset_color%}%{$fg_bold[blue]%}%0~%{$reset_color%}%{$fg_bold[red]%} %{$reset_color%}'
     # (4~|.../%2~|%~) makes the dir shows top 2 dir, if the dir path is more than 4 long.
-    base_prompt='%{$fg_bold[yellow]%}$(conda_prompt_info)%{$reset_color%}%{$fg_bold[yellow]%}$(virtualenv_prompt_info)%{$reset_color%}%{$fg_bold[green]%}%n%{$reset_color%}%{$fg_bold[green]%}:%{$reset_color%}%{$fg_bold[blue]%}%(4~|.../%2~|%~)%{$reset_color%}%{$fg_bold[red]%} %{$reset_color%}'
-    
+    # base_prompt='%{$fg_bold[yellow]%}$(conda_prompt_info)%{$reset_color%}%{$fg_bold[yellow]%}$(virtualenv_prompt_info)%{$reset_color%}%{$fg_bold[green]%}%n%{$reset_color%}%{$fg_bold[green]%}:%{$reset_color%}%{$fg_bold[blue]%}%(4~|.../%2~|%~)%{$reset_color%}%{$fg_bold[red]%} %{$reset_color%}'
+    base_prompt='%{$fg_bold[yellow]%}$(conda_prompt_info)%{$reset_color%}%{$fg_bold[green]%}%n%{$reset_color%}%{$fg_bold[green]%}:%{$reset_color%}%{$fg_bold[blue]%}%(4~|.../%2~|%~)%{$reset_color%}%{$fg_bold[red]%} %{$reset_color%}'
     post_prompt='%{$fg_bold[yellow]%} ➜%{$reset_color%} '
     
     base_prompt_nocolor=$(echo "$base_prompt" | perl -pe "s/%\{[^}]+\}//g")
